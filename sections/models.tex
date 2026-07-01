@@ -1,0 +1,53 @@
+% ==========================================
+% SEÇÃO 3: MODELOS ORIENTADOS AO USUÁRIO E TRANSMISSÃO
+% ==========================================
+\section[Modelos]{Modelos de Cor e Transmissão}
+
+\begin{frame}{Modelos Orientados ao Usuário: HSV e HSL}
+    \begin{itemize}
+        \item \textbf{Limitação do RGB:} O modelo RGB não é intuitivo para seres humanos (ex: é difícil adivinhar a composição RGB exata para um tom específico de marrom).
+        \vspace{0.2cm}
+        \item \textbf{Abstração Humana (HSV / HSL):}
+        \begin{itemize}
+            \item \textbf{H (Hue / Matiz):} Ângulo radial em um disco cromático ($0^\circ$ a $360^\circ$).
+            \item \textbf{S (Saturation / Saturação):} Distância do eixo central (pureza).
+            \item \textbf{V / L (Value ou Lightness / Brilho):} Eixo vertical de intensidade luminosa.
+        \end{itemize}
+        \vspace{0.2cm}
+        \item \textbf{Representação Geométrica:} Mapeados como estruturas tridimensionais cônicas, cilíndricas ou hexagonais. Ideal para a implementação de seletores de cor (*Color Pickers*) em UIs.
+    \end{itemize}
+
+    % \begin{figure}[H]
+    %     \centering
+    %     \includegraphics[width=0.4\textwidth]{cone_hsv.png}
+    %     \caption{Sugestão de Imagem: Modelo geométrico tridimensional em formato de cone ou cilindro representando o espaço HSV.}
+    % \end{figure}
+
+    \note{Enfatizar a diferença de arquitetura: RGB é orientado ao hardware (barramento, subpixels), enquanto HSV/HSL é orientado à cognição humana e artistas digitais. O programador faz a conversão matemática nos seletores em tempo real.}
+\end{frame}
+
+\begin{frame}{Transmissão e Processamento Cognitivo: YIQ e Cores Oponentes}
+    \begin{itemize}
+        \item \textbf{O Modelo YIQ (Padrão NTSC):}
+        \begin{itemize}
+            \item Criado para garantir a retrocompatibilidade da TV colorida com as TVs Preto e Branco.
+            \item \textbf{Y (Luminância):} Intensidade da luz. O único canal lido por aparelhos P\&B.
+            \item \textbf{I e Q (Crominância):} Informações de fase e amplitude da cor.
+        \end{itemize}
+        \vspace{0.2cm}
+        \item \textbf{Teoria das Cores Oponentes:}
+        \begin{itemize}
+            \item O processamento neurológico no cérebro ocorre via canais antagonistas: \textbf{Vermelho-Verde}, \textbf{Azul-Amarelo} e \textbf{Preto-Branco}.
+            \item Explica por que é neurologicamente impossível visualizar uma cor descrita como "verde-avermelhada".
+            \item Origina o fenômeno de \textit{pós-imagem (afterimage)} após a fadiga de fotorreceptores específicos.
+        \end{itemize}
+    \end{itemize}
+
+    % \begin{figure}[H]
+    %     \centering
+    %     \includegraphics[width=0.5\textwidth]{teoria_oponentes.png}
+    %     \caption{Sugestão de Imagem: Diagrama esquemático mostrando o mecanismo dos canais oponentes do cérebro (R-G, B-Y, Blk-W).}
+    % \end{figure}
+
+    \note{Explicar que o modelo YIQ é um exemplo brilhante de otimização de largura de banda na engenharia de telecomunicações: o olho humano tem menos resolução espacial para cromaticidade (I, Q) do que para luminância (Y), permitindo comprimir os canais de cor sem perda percebida. Falar brevemente sobre a ilusão de óptica da pós-imagem.}
+\end{frame}

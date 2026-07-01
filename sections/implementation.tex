@@ -1,0 +1,76 @@
+% ==========================================
+% SEÇÃO 5: IMPLEMENTAÇÃO E COMPUTAÇÃO GRÁFICA AVANÇADA
+% ==========================================
+\section[Implementação]{Implementação e Computação Gráfica Avançada}
+
+\begin{frame}{Cores em OpenGL e o Canal Alpha}
+    \begin{itemize}
+        \item \textbf{Modelo RGBA no pipeline Gráfico:}
+        \begin{itemize}
+            \item Na API OpenGL, as cores são comumente instanciadas no modelo RGBA via comandos como \texttt{glColor*}.
+            \item O quarto canal (\textbf{Alpha}) é representado tipicamente por 8 bits e atua mapeando a opacidade escalar (de $0.0$ para totalmente transparente a $1.0$ para totalmente opaco).
+        \end{itemize}
+        \vspace{0.2cm}
+        \item \textbf{O Algoritmo de Blending (Mistura):}
+        \begin{itemize}
+            \item Para renderizar a translucidez de geometrias sobrepostas, o hardware gráfico executa uma média ponderada via equação de blending:
+            \[ NovaCor = (CorObjeto \times Alpha) + (CorFundo \times (1 - Alpha)) \]
+        \end{itemize}
+    \end{itemize}
+
+    % \begin{figure}[H]
+    %     \centering
+    %     \includegraphics[width=0.6\textwidth]{mecanismo_blending.png}
+    %     \caption{Sugestão de Imagem: Fluxograma visual do pipeline de renderização aplicando a fórmula de Alpha Blending de um polígono sobre o Framebuffer.}
+    % \end{figure}
+
+    \note{Dica crucial para o palestrante: Enfatize o Array de Pixels! Lembre à turma que, em arquiteturas de sistemas de 32 bits, cada pixel na memória de vídeo (VRAM) é estruturado estritamente como um array de 4 bytes contíguos (R, G, B, A). Explicar que a ordem dos termos na equação importa para o buffer de profundidade (Z-buffer).}
+\end{frame}
+
+\begin{frame}{Técnicas Avançadas de Realismo Cromático}
+    \begin{itemize}
+        \item \textbf{Light Maps (Mapas de Luz):}
+        \begin{itemize}
+            \item Em jogos e aplicações em tempo real, calcular equações de iluminação globais e sombras a cada frame é computacionalmente proibitivo.
+            \item \textit{Solução:} As informações cromáticas de iluminação estática são pré-calculadas (*baked*) e armazenadas como texturas secundárias aplicadas sobre a geometria.
+        \end{itemize}
+        \vspace{0.2cm}
+        \item \textbf{Sub-Surface Light Scattering (SSS):}
+        \begin{itemize}
+            \item Simulação física do comportamento de fótons que penetram a superfície de materiais translúcidos (ex: pele humana, folhas, mármore).
+            \item A luz se espalha internamente através do material antes de ser reemitida para fora, gerando fotorrealismo crítico em personagens digitais.
+        \end{itemize}
+    \end{itemize}
+
+    % \begin{figure}[H]
+    %     \centering
+    %     \includegraphics[width=0.6\textwidth]{subsurface_scattering_demo.png}
+    %     \caption{Sugestão de Imagem: Comparação de renderização de uma orelha humana ou esfera com e sem a aplicação do efeito de Sub-Surface Scattering (SSS).}
+    % \end{figure}
+
+    \note{Explicar que o SSS é o que diferencia superfícies que parecem de plástico sem vida de peles reais e orgânicas. Sem o SSS, as bordas finas iluminadas por trás pareceriam incorretamente opacas e escuras.}
+\end{frame}
+
+\begin{frame}{Consistência de Hardware e Auxiliares 3D}
+    \begin{itemize}
+        \item \textbf{Ferramentas de Apoio (Helpers):}
+        \begin{itemize}
+            \item Engines de modelagem 3D utilizam ferramentas como a \textbf{Bússola (Compass)} para correlacionar geometricamente o ângulo e a cor da luz solar.
+            \item Garante que a projeção de sombras físicas siga matrizes de transformações coerentes com o cenário simulado.
+        \end{itemize}
+        \vspace{0.4cm}
+        \item \textbf{Consistência de Hardware:}
+        \begin{itemize}
+            \item Sistemas como o \textbf{ColorSync} e o padrão \textbf{Pantone} utilizam tabelas de calibração rígidas (Look-Up Tables - LUTs).
+            \item \textit{Objetivo:} Garantir que o valor cromático exato renderizado na matriz do monitor seja o mesmo transferido para o substrato físico da impressora.
+        \end{itemize}
+    \end{itemize}
+
+    % \begin{figure}[H]
+    %     \centering
+    %     \includegraphics[width=0.5\textwidth]{calibracao_colorsync.png}
+    %     \caption{Sugestão de Imagem: Esquema conceitual de gerenciamento de cores conectando perfis ICC de entrada, exibição e saída.}
+    % \end{figure}
+
+    \note{Concluir a apresentação amarrando todo o pipeline: desde o fotorreceptor do olho humano, passando pelas matrizes de conversão em software, a codificação de 4 bytes na VRAM, até os sistemas operacionais gerenciando perfis de calibração ICC para que o designer e o cliente final vejam exatamente o mesmo espectro.}
+\end{frame}

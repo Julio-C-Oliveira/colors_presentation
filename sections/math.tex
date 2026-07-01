@@ -1,0 +1,29 @@
+% ==========================================
+% SEÇÃO 4: MATEMÁTICA E PROCESSAMENTO
+% ==========================================
+\section[Processamento]{Matemática e Processamento}
+
+\begin{frame}{Transformações de Espaço e o Histograma}
+    \begin{itemize}
+        \item \textbf{Transformações de Espaço de Cor:}
+        \begin{itemize}
+            \item A conversão entre modelos é realizada via operações de álgebra linear utilizando matrizes de transformação.
+            \item Exemplo: Conversão de RGB para o padrão internacional \textbf{CIE XYZ} (observador padrão) usando coeficientes normalizados baseados nas primárias físicas do sistema NTSC.
+        \end{itemize}
+        \vspace{0.2cm}
+        \item \textbf{O Histograma de Cores:}
+        \begin{itemize}
+            \item Uma ferramenta estatística discreta fundamental no processamento digital de imagens.
+            \item Computa a densidade de frequência de ocorrência de cada tom/intensidade na imagem.
+            \item \textbf{Aplicações Práticas:} Recuperação de Imagens por Conteúdo (CBIR) via comparação de histogramas, e algoritmos automáticos de Equalização de Contraste.
+        \end{itemize}
+    \end{itemize}
+
+    % \begin{figure}[H]
+    %     \centering
+    %     \includegraphics[width=0.6\textwidth]{histograma_exemplo.png}
+    %     \caption{Sugestão de Imagem: Uma imagem digital ao lado de seus respectivos histogramas de canais divididos (R, G e B).}
+    % \end{figure}
+
+    \note{Mostrar que a computação gráfica trata a cor puramente como vetores e matrizes. O histograma funciona mapeando os pixels em partições de dados (bins). Se duas imagens possuem histogramas estatisticamente muito próximos, elas compartilham propriedades de composição cromática semelhantes.}
+\end{frame}

@@ -4,7 +4,7 @@
 \section[Cores e Dispositivos]{Síntese de Cores e Dispositivos}
 
 \begin{frame}{Síntese Aditiva: Modelo RGB}
-    \begin{columns}[T]
+    \begin{columns}
         \begin{column}{0.55\textwidth}
             \begin{itemize}
                 \item \textbf{Sistemas Aditivos de Emissão:}
@@ -12,17 +12,11 @@
                     \item Aplicado em hardware emissor de luz diretamente para o olho: telas OLED, LCDs, projetores e TVs.
                 \end{itemize}
                 \vspace{0.2cm}
-                \item \textbf{Engenharia do Subpixel:}
+                \item \textbf{Subpixel:}
                 \begin{itemize}
-                    \item Cada pixel é uma junção de emissores independentes (\textbf{R}, \textbf{G}, \textbf{B}) invisíveis a olho nu.
+                    \item Cada pixel é uma junção de emissores independentes (\textbf{R}, \textbf{G}, \textbf{B}).
                 \end{itemize}
                 \vspace{0.2cm}
-                \item \textbf{Estrutura de Memória e Sinal:}
-                \begin{itemize}
-                    \item Representação digital direta no barramento: $C = rR + gG + bB$.
-                    \item \textbf{Preto (0):} LEDs totalmente desligados (ausência de fótons).
-                    \item \textbf{Branco (max):} Potência máxima nos 3 canais simultâneos.
-                \end{itemize}
             \end{itemize}
         \end{column}
         
@@ -150,13 +144,12 @@
 \end{frame}
 
 \begin{frame}{O Conflito de Gamut}
-    \begin{columns}[T]
+    \begin{columns}
         \begin{column}{0.55\textwidth}
             \begin{itemize}
                 \item \textbf{O Problema do Mundo Real:}
                 \begin{itemize}
                     \item \textbf{Gamut} é o limite físico de cores que um determinado hardware consegue reproduzir.
-                    \item Tons "neon" ou verdes hiper-saturados do RGB dependem da emissão direta de fótons (luz). Pigmentos químicos (CMYK) não possuem esse brilho físico.
                 \end{itemize}
                 \vspace{0.2cm}
                 \item \textbf{A Solução via Software:}

@@ -60,44 +60,44 @@
     }
 \end{frame}
 
-\begin{frame}{Transmissão e Compressão Digital: Modelo YIQ}
-    \begin{columns}[T]
-        \small
-        \begin{column}{0.55\textwidth}
-            \textbf{Retrocompatibilidade Histórica:} Criado para permitir que TVs coloridas e TVs P\&B compartilhassem o sinal de transmissão de rádio.
+% \begin{frame}{Transmissão e Compressão Digital: Modelo YIQ}
+%     \begin{columns}[T]
+%         \small
+%         \begin{column}{0.55\textwidth}
+%             \textbf{Retrocompatibilidade Histórica:} Criado para permitir que TVs coloridas e TVs P\&B compartilhassem o sinal de transmissão de rádio.
 
-            \textbf{Otimização Baseada na Biologia:}
-            \begin{itemize}
-                \item Como vimos na Seção 1 (Canais Oponentes), a acuidade espacial do olho humano está concentrada no brilho ($Y$), não na cor ($I$ e $Q$).
-            \end{itemize}
+%             \textbf{Otimização Baseada na Biologia:}
+%             \begin{itemize}
+%                 \item Como vimos na Seção 1 (Canais Oponentes), a acuidade espacial do olho humano está concentrada no brilho ($Y$), não na cor ($I$ e $Q$).
+%             \end{itemize}
 
-            \textbf{Subamostragem de Crominância:}
-            \begin{itemize}
-                \item Permite descartar metade dos dados das variáveis de cor ($I, Q$) sem perda perceptível de qualidade pelo olho humano.
-            \end{itemize}
-        \end{column}
+%             \textbf{Subamostragem de Crominância:}
+%             \begin{itemize}
+%                 \item Permite descartar metade dos dados das variáveis de cor ($I, Q$) sem perda perceptível de qualidade pelo olho humano.
+%             \end{itemize}
+%         \end{column}
         
-        \begin{column}{0.45\textwidth}
-            \begin{figure}
-                \centering
-                \includegraphics[width=0.9\textwidth]{images/teoria_oponentes.jpg} 
-                \caption{Aproveitamento de canais diferenciais para compressão de sinal.}
-            \end{figure}
-        \end{column}
-    \end{columns}
+%         \begin{column}{0.45\textwidth}
+%             \begin{figure}
+%                 \centering
+%                 \includegraphics[width=0.9\textwidth]{images/teoria_oponentes.jpg} 
+%                 \caption{Aproveitamento de canais diferenciais para compressão de sinal.}
+%             \end{figure}
+%         \end{column}
+%     \end{columns}
 
-    \note{
-        \begin{columns}[T]
-            \begin{column}{1\textwidth}
-                \scriptsize
-                \textbf{Otimização de Hardware e Banda:}
-                \begin{itemize}
-                    \setlength{\itemsep}{1pt}
-                    \item \textbf{Histórico da Engenharia de TV:} As TVs Preto e Branco precisavam apenas do canal $Y$ (Luminância). Quando a TV colorida surgiu, os engenheiros inseriram os canais $I$ e $Q$ (Crominância) "escondidos" nas bordas do mesmo sinal analógico, evitando ter que criar canais de transmissão novos para cada emissora.
-                    \item \textbf{Economia de Recursos:} Sabendo que o cérebro processa o brilho separado da cor através dos eixos oponentes, reduziu-se a largura de banda de $I$ e $Q$ de forma agressiva.
-                    \item \textbf{Legado na Computação Gráfica:} O YIQ é o ancestral tecnológico direto dos formatos digitais modernos de compressão de imagem e vídeo, como o **YCbCr** (usado no núcleo de algoritmos de arquivos **JPEG, MPEG e MP4**). Na computação forense e streaming, descartamos dados de cor brutos confiando na tolerância cognitiva do cérebro.
-                \end{itemize}
-            \end{column}
-        \end{columns}   
-    }
-\end{frame}
+%     \note{
+%         \begin{columns}[T]
+%             \begin{column}{1\textwidth}
+%                 \scriptsize
+%                 \textbf{Otimização de Hardware e Banda:}
+%                 \begin{itemize}
+%                     \setlength{\itemsep}{1pt}
+%                     \item \textbf{Histórico da Engenharia de TV:} As TVs Preto e Branco precisavam apenas do canal $Y$ (Luminância). Quando a TV colorida surgiu, os engenheiros inseriram os canais $I$ e $Q$ (Crominância) "escondidos" nas bordas do mesmo sinal analógico, evitando ter que criar canais de transmissão novos para cada emissora.
+%                     \item \textbf{Economia de Recursos:} Sabendo que o cérebro processa o brilho separado da cor através dos eixos oponentes, reduziu-se a largura de banda de $I$ e $Q$ de forma agressiva.
+%                     \item \textbf{Legado na Computação Gráfica:} O YIQ é o ancestral tecnológico direto dos formatos digitais modernos de compressão de imagem e vídeo, como o **YCbCr** (usado no núcleo de algoritmos de arquivos **JPEG, MPEG e MP4**). Na computação forense e streaming, descartamos dados de cor brutos confiando na tolerância cognitiva do cérebro.
+%                 \end{itemize}
+%             \end{column}
+%         \end{columns}   
+%     }
+% \end{frame}

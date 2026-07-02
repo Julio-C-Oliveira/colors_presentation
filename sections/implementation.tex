@@ -109,54 +109,60 @@
             \end{column}
         \end{columns}   
     }
+
 \end{frame}
 
-% \begin{frame}{Consistência de Hardware e Auxiliares 3D}
-%     \begin{columns}[T]
-%         \begin{column}{0.55\textwidth}
-%             \begin{itemize}
-%                 \item \textbf{Helpers de Orientação Espacial:}
-%                 \begin{itemize}
-%                     \item Ferramentas de UI (como bússolas solares em viewports) correlacionam vetores matemáticos de direção de luz com a matriz de cor (\textit{Kelvin}) da atmosfera simulada.
-%                 \end{itemize}
-%                 \vspace{0.2cm}
-%                 \item \textbf{Consistência via Hardware (LUTs):}
-%                 \begin{itemize}
-%                     \item Monitores diferentes exibem cores diferentes para o mesmo byte enviado. 
-%                     \item Sistemas operacionais utilizam **LUTs (Look-Up Tables)** e perfis ICC rígidos para interceptar a saída de vídeo e recalibrar a voltagem enviada a cada pixel.
-%                     \item Padrões industriais (como **Pantone**) garantem equivalência exata entre o espectro luminoso e a química da tinta.
-%                 \end{itemize}
-%             \end{itemize}
-%         \end{column}
+
+
+
+
+\begin{frame}{O Algoritmo de Dithering e a Ilusão Cromática}
+    \begin{columns}[T]
+        \begin{column}{0.55\textwidth}
+            \textbf{Quantização e Redução de Cores:}
+            \begin{itemize}
+                \item Técnica matemática para simular maior profundidade de cor (bits por pixel) em hardwares com paletas severamente limitadas.
+                \item Utiliza padrões geométricos de pixels ou difusão de erro para enganar a percepção humana.
+            \end{itemize}
+            
+            \vspace{0.2cm}
+            
+            \textbf{O Papel do Hardware Analógico (CRT):}
+            \begin{itemize}
+                \item A imperfeição física dos monitores CRT atuava como um filtro passa-baixa natural, fundindo os pixels em degradês suaves.
+            \end{itemize}
+        \end{column}
         
-%         \begin{column}{0.45\textwidth}
-%             \begin{figure}
-%                 \centering
-%                 \includegraphics[width=0.9\textwidth]{calibracao_colorsync.png}
-%                 \caption{Fluxo de conversão e gerenciamento de perfis ICC entre dispositivos.}
-%             \end{figure}
-%         \end{column}
-%     \end{columns}
+        \begin{column}{0.45\textwidth}
+            \begin{figure}
+                \centering
+                \includegraphics[width=0.7\textwidth]{images/chrono_trigger.png}
+                \caption{Fusão óptica de pseudo-cores através de entrelaçamento de pixels em malhas CRT.}
+            \end{figure}
+        \end{column}
+    \end{columns}
 
-%     \note{
-%         \begin{columns}[T]
-%             \begin{column}{0.49\textwidth}
-%                 \scriptsize
-%                 \textbf{Mapeamento por Hardware:}
-%                 \begin{itemize}
-%                     \setlength{\itemsep}{1pt}
-%                     \item \textbf{Funcionamento da LUT:} A Look-Up Table funciona como uma matriz de busca indexada na GPU. Se o software envia a cor hexadecimal \#FF0000, mas o monitor específico do usuário tende a exibir o vermelho de forma ligeiramente dessaturada, a LUT altera esse valor em tempo de hardware para uma coordenada compensada.
-%                 \end{itemize}
-%             \end{column}
+    \note{
+        \begin{columns}[T]
+            \begin{column}{0.49\textwidth}
+                \scriptsize
+                \textbf{Difusão de Erro (Floyd-Steinberg):}
+                \begin{itemize}
+                    \setlength{\itemsep}{1pt}
+                    \item \textbf{A Matemática:} O algoritmo calcula a diferença entre a cor original do pixel e a cor mais próxima disponível na paleta. Esse erro residual é distribuído/difundido para os pixels vizinhos ainda não processados usando uma matriz de pesos.
+                \end{itemize}
+            \end{column}
 
-%             \begin{column}{0.49\textwidth}    
-%                 \scriptsize
-%                 \textbf{Fechamento do Pipeline Geral:}
-%                 \begin{itemize}
-%                     \setlength{\itemsep}{1pt}
-%                     \item \textbf{A Cadeia Completa:} O pipeline de cor une a biologia humana (fotorreceptores da retina), a matemática discreta (vetores RGB e espaços como CIE XYZ), a arquitetura de computadores (alocação de arrays de 4 bytes na VRAM paralelizados em Shaders) e a física de materiais (calibração de espectros de monitores e resposta química de tintas).
-%                 \end{itemize}
-%             \end{column}
-%         \end{columns}   
-%     }
-% \end{frame}
+            \begin{column}{0.49\textwidth}    
+                \scriptsize
+                \textbf{Anacronismo Digital (LCD/OLED):}
+                \begin{itemize}
+                    \setlength{\itemsep}{1pt}
+                    \item \textbf{Quebra da Ilusão:} Telas modernas exibem pixels estritos com matrizes nítidas e sem vazamento de luz. Sem o desfoque do CRT, os padrões de dithering tornam-se artefatos de ruído visíveis. Engines modernas aplicam filtros de interpolação para restaurar o efeito pretendido originalmente.
+                \end{itemize}
+            \end{column}
+        \end{columns}   
+    }
+\end{frame}
+
+

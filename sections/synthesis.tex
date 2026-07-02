@@ -1,14 +1,15 @@
-% ==========================================
-% SEÇÃO 2: SÍNTESE DE CORES: RGB VS. CMYK
-% ==========================================
-\section{Síntese de Cores}
+% ==============================================================================
+% SEÇÃO 2: SÍNTESE DE CORES E DISPOSITIVOS (O HARDWARE)
+% ==============================================================================
+\section[Cores e Dispositivos]{Síntese de Cores e Dispositivos}
+
 \begin{frame}{Síntese Aditiva: Modelo RGB}
     \begin{columns}[T]
         \begin{column}{0.55\textwidth}
             \begin{itemize}
                 \item \textbf{Sistemas Aditivos de Emissão:}
                 \begin{itemize}
-                    \item Aplicado em hardware emissor de luz: telas OLED, LCDs, projetores e TVs.
+                    \item Aplicado em hardware emissor de luz diretamente para o olho: telas OLED, LCDs, projetores e TVs.
                 \end{itemize}
                 \vspace{0.2cm}
                 \item \textbf{Engenharia do Subpixel:}
@@ -16,10 +17,10 @@
                     \item Cada pixel é uma junção de emissores independentes (\textbf{R}, \textbf{G}, \textbf{B}) invisíveis a olho nu.
                 \end{itemize}
                 \vspace{0.2cm}
-                \item \textbf{Estrutura de Memória:}
+                \item \textbf{Estrutura de Memória e Sinal:}
                 \begin{itemize}
                     \item Representação digital direta no barramento: $C = rR + gG + bB$.
-                    \item \textbf{Preto (0):} LEDs totalmente desligados.
+                    \item \textbf{Preto (0):} LEDs totalmente desligados (ausência de fótons).
                     \item \textbf{Branco (max):} Potência máxima nos 3 canais simultâneos.
                 \end{itemize}
             \end{itemize}
@@ -38,24 +39,17 @@
         \begin{columns}[T]
             \begin{column}{0.49\textwidth}
                 \scriptsize
-
                 \textbf{Foco Prático e Hardware:}
                 \begin{itemize}
                     \setlength{\itemsep}{1pt}
                     \item \textbf{Aparato Físico:} Monitores projetam fótons direto no olho, diferente de uma folha que absorve e reflete luz.
-                    \item \textbf{Subpixel macro:} Gota de água ou lupa na tela do celular revela os filetes isolados R, G e B acesos.
-                    \item \textbf{Memória:} Na programação, pixel de 24 bits dedica 1 byte (0 a 255) para controlar a voltagem/brilho de cada lâmpada.
-                    \item \textbf{Matemática Básica:} Foco no conceito: somou tudo vira Branco; cortou a energia do barramento vira Preto absoluto (telas OLED).
+                    \item \textbf{Memória:} Na programação, um pixel de 24 bits dedica 1 byte (0 a 255) para controlar a voltagem/brilho de cada lâmpada.
+                    \item \textbf{Controle Elétrico:} Cortar a energia do barramento gera o preto absoluto (muito nítido em telas OLED onde o LED apaga individualmente).
                 \end{itemize}
-
-                \vspace{0.1cm}
-                
-                Cor final é a \textbf{soma física de fótons} na retina.
             \end{column}
 
             \begin{column}{0.49\textwidth}    
                 \scriptsize
-
                 \textbf{O Barramento ($C = rR + gG + bB$):}
                 \begin{itemize}
                     \setlength{\itemsep}{1pt}
@@ -63,17 +57,17 @@
                     \item \textbf{Fixos ($R, G, B$):} Três subpixels físicos (micro-LEDs) soldados na placa do monitor.
                     \item \textbf{Variáveis ($r, g, b$):} Valores digitais definidos na memória (ex: 0 a 255 ou 0.0 a 1.0).
                     \item \textbf{Mecanismo:} Funcionam como reguladores de voltagem. O barramento envia os números e a tela injeta corrente.
-                    \item \textbf{Exemplo:} Se o código define $r=255, g=0, b=0$, manda energia máxima para o vermelho e desliga os outros, gerando vermelho puro.
+                    \item \textbf{Exemplo:} Se o código define $r=255, g=0, b=0$, manda energia máxima para o vermelho e desliga os outros.
                 \end{itemize}
             \end{column}
         \end{columns}
     }
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Microestrutura das Telas}
     \begin{figure}
         \centering
-        % \includegraphics[width=0.9\textwidth]{images/tela_no_microscopio.jpg}
+        \includegraphics[width=0.55\textwidth]{images/tela_no_microscopio.jpg}
         \caption{Tela do celular ampliada no microscópio.}
     \end{figure}
 
@@ -108,10 +102,9 @@
     \begin{columns}
         \begin{column}{0.55\textwidth}
             \textbf{Sistemas Subtrativos de Absorção:}
-
             \begin{itemize}
-                \item Aplicado em meios físicos onde a cor \textbf{não tem luz própria} (papel, tintas, corantes).
-                \item A tinta funciona como um filtro: ela \textbf{subtrai (absorve)} frequências e reflete o resto.
+                \item Aplicado em meios físicos onde a cor \textbf{não tem luz própria} (papel, tintas, impressos).
+                \item A tinta funciona como um filtro físico: ela \textbf{subtrai (absorve)} frequências da luz ambiente e reflete apenas o resto para o nosso olho.
             \end{itemize}
         \end{column}
         
@@ -128,38 +121,28 @@
         \begin{columns}[T]
             \begin{column}{0.5\textwidth}
                 \scriptsize
-
                 \textbf{Física dos Pigmentos Primários:}
                 \begin{itemize}
                     \item \textbf{Ciano} absorve Vermelho (reflete G+B).
                     \item \textbf{Magenta} absorve Verde (reflete R+B).
                     \item \textbf{Amarelo} absorve Azul (reflete R+G).
                 \end{itemize}
-
-                \vspace{0.2cm}
-
+                \vspace{0.1cm}
                 \textbf{A Lógica Prática:}
                 \begin{itemize}
                     \setlength{\itemsep}{1pt}
-                    \item \textbf{Luz Ambientes:} Para o papel ter cor, ele depende de uma luz externa (branca) batendo nele.
-                    \item \textbf{O Filtro:} Quando você joga tinta ciano, você está criando uma barreira química que "engole" os fótons vermelhos da lâmpada do quarto. O que sobra e volta pro seu olho é o Verde e Azul (Ciano).
+                    \item \textbf{Filtros Químicos:} Quando você joga tinta ciano no papel, está criando uma barreira química que "engole" os fótons vermelhos da lâmpada do quarto. O que sobra e volta pro seu olho é o Verde e Azul, que juntos formam o Ciano.
                 \end{itemize}
             \end{column}
 
             \begin{column}{0.5\textwidth}    
                 \scriptsize
-
-                \textbf{Engenharia Gráfica:}
+                \textbf{Engenharia Gráfica e o Canal K:}
                 \begin{itemize}
                     \setlength{\itemsep}{1pt}
-                    \item \textbf{O mistério do K:} Explique que "K" vem de \textit{Key Plate} (a placa matriz preta que dava os detalhes e contornos na prensa tradicional).
-                    \item \textbf{Problema de Negócio:} Se você imprimir um texto longo usando CMY para fazer preto, o papel sai molhado, enruga, rasga e a impressora gasta 3x mais cartucho. Preto puro resolve isso.
-                \end{itemize}
-
-                \textbf{Otimização de Processo (O canal K):}
-                \begin{itemize}
-                    \item \textbf{Engenharia Química:} Misturar $C+M+Y$ cria um marrom lamacento devido a impurezas.
-                    \item \textbf{Custo e Secagem:} Usar a tinta preta ($K$) evita encharcar o papel e reduz drasticamente o custo por página.
+                    \item \textbf{O mistério do K:} Significa \textit{Key Plate} (a placa matriz preta que dava os detalhes de contorno na prensa tradicional).
+                    \item \textbf{Problema de Engenharia Química:} Misturar $C+M+Y$ puramente cria um marrom lamacento devido a impurezas dos pigmentos reais.
+                    \item \textbf{Custo e Secagem:} Imprimir textos longos usando CMY para simular o preto encharcaria o papel (ele enruga ou rasga) e gastaria 3x mais cartucho. A tinta preta pura ($K$) resolve esse problema operacional.
                 \end{itemize}
             \end{column}
         \end{columns}
@@ -172,15 +155,13 @@
             \begin{itemize}
                 \item \textbf{O Problema do Mundo Real:}
                 \begin{itemize}
-                    \item \textbf{Gamut} é o limite físico de cores que um hardware consegue alcançar.
-                    \item Tons "neon" ou verdes hiper-saturados do RGB dependem da emissão direta de luz. Pigmentos químicos (CMYK) não conseguem imitar esse brilho.
+                    \item \textbf{Gamut} é o limite físico de cores que um determinado hardware consegue reproduzir.
+                    \item Tons "neon" ou verdes hiper-saturados do RGB dependem da emissão direta de fótons (luz). Pigmentos químicos (CMYK) não possuem esse brilho físico.
                 \end{itemize}
-
                 \vspace{0.2cm}
-
                 \item \textbf{A Solução via Software:}
                 \begin{itemize}
-                    \item Quando uma cor da tela está "fora" do limite da impressora, o sistema roda algoritmos de \textbf{Mapeamento de Gamut}.
+                    \item Quando uma cor digital da tela cai "fora" do limite físico da impressora, o sistema operacional roda algoritmos de \textbf{Mapeamento de Gamut} para traduzir a cor da forma mais fiel possível.
                 \end{itemize}
             \end{itemize}
         \end{column}
@@ -201,16 +182,10 @@
                 \textbf{Leitura do Gráfico (Diagrama CIE):}
                 \begin{itemize}
                     \setlength{\itemsep}{0pt}
-                    \item \textbf{A Ferradura (Olho):} Representa todo o espectro visível pelo olho humano.
-                    \item \textbf{Triângulo (RGB):} O limite que as telas alcançam. \textbf{Polígono interno (CMYK):} O limite da impressão.
-                    \item \textbf{Visualização do Conflito:} A área do triângulo RGB que fica de fora do CMYK (como os verdes/azuis no topo) são as cores impossíveis de imprimir, gerando a necessidade do mapeamento.
-                \end{itemize}
-
-                \textbf{O Choque de Hardware:}
-                \begin{itemize}
-                    \setlength{\itemsep}{1pt}
-                    \item \textbf{O Susto do Cliente:} Na tela tá um verde neon, na blusa tá um verde fosco.
-                    \item \textbf{Limitação da Física:} O pigmento físico simplesmente não reflete aquela frequência de fótons.
+                    \item \textbf{A Ferradura:} Todo o espectro visível pelo olho humano (visto na Seção 1).
+                    \item \textbf{Triângulo (RGB):} O limite que as telas alcançam.
+                    \item \textbf{Polígono interno (CMYK):} O limite da impressão.
+                    \item \textbf{O Choque:} A área do triângulo RGB que fica de fora do CMYK são as cores impossíveis de imprimir (o famoso susto do cliente: verde neon na tela vira verde fosco no papel).
                 \end{itemize}
             \end{column}
 
@@ -219,8 +194,8 @@
                 \textbf{Estratégias de Renderização (CMS):}
                 \begin{itemize}
                     \setlength{\itemsep}{1pt}
-                    \item \textbf{Perceptual (Fotográfico):} Reduz o gamut inteiro proporcionalmente. Comprime todas as cores da imagem (inclusive as que a impressora conseguiria fazer) para preservar o gradiente e a relação visual entre elas. Evita estouros.
-                    \item \textbf{Colorimétrico Relativo:} Faz o \textit{clipping} (poda). Mantém as cores internas idênticas e intocadas. Tudo o que estiver fora do limite é achatado (\textit{clamped}) na borda do gamut. Excelente para logos e cores sólidas exatas, mas destrói degradês finos.
+                    \item \textbf{Perceptual (Fotográfico):} Reduz o gamut inteiro proporcionalmente. Comprime todas as cores da imagem (inclusive as válidas) para preservar a relação visual entre elas e evitar "estouros" de degradê.
+                    \item \textbf{Colorimétrico Relativo:} Faz um mapeamento por poda (\textit{clipping}). Mantém as cores internas idênticas. Tudo o que estiver fora do limite é achatado (\textit{clamped}) na borda mais próxima. Ótimo para logotipos, mas destrói degradês finos.
                 \end{itemize}
             \end{column}
         \end{columns}   

@@ -1,9 +1,9 @@
-% ==========================================
-% SEÇÃO 1: INTRODUÇÃO E FÍSICA DA LUZ
-% ==========================================
-\section{Introdução}
+% ==============================================================================
+% SEÇÃO 1: FUNDAMENTOS DA VISÃO E DA LUZ (O HUMANO)
+% ==============================================================================
+\section[Fundamentos]{Fundamentos da Visão e da Luz}
 
-\begin{frame}{Percepção Humana}
+\begin{frame}{Percepção Humana (Fase 1: A Retina)}
     \begin{columns}
         \begin{column}{0.45\textwidth}
             \begin{itemize}
@@ -15,9 +15,9 @@
                 \vspace{0.3cm}
                 \item \textbf{Teoria Tricromática:}
                 \begin{itemize}
-                    \item Azul.
-                    \item Verde.
-                    \item Vermelho/Amarelo.
+                    \item Azul (Curtos).
+                    \item Verde (Médios).
+                    \item Vermelho/Amarelo (Longos).
                 \end{itemize}
             \end{itemize}
         \end{column}
@@ -40,11 +40,58 @@
             \item \textbf{Cones ($\approx$ 6 a 7 milhões):} São os sensores responsáveis pela cor, mas que só funcionam bem com bastante luz. Note que nós temos muito menos sensores de cor do que de brilho.
         \end{enumerate}
         
-        O gráfico ilustra a Teoria Tricromática, que é a base para a existência do RGB nos computadores. Nós não temos um cone para cada cor existente; a gente tem três tipos de cones (curtos: detectam azul. médios: detectam verde. longos: detectam vermelho/amarelo.), e o cérebro faz uma média ponderada dos sinais recebidos por eles.
+        O gráfico ilustra a Teoria Tricromática, que é a base para a existência do RGB nos computadores. Nós não temos um cone para cada cor existente; a gente tem três tipos de cones, e o cérebro faz uma média ponderada dos sinais recebidos por eles.
     }
 \end{frame}
 
-\begin{frame}{Colorimetria}
+\begin{frame}{Processamento (Fase 2: Canais Oponentes)}
+    \begin{columns}
+        \small
+        \begin{column}{0.55\textwidth}
+            \textbf{A Engenharia Biológica:}
+            \begin{itemize}
+                \item A retina não envia o RGB bruto para o cérebro. Ela converte os sinais em três eixos diferenciais de voltagem.
+            \end{itemize}
+             
+            \textbf{Os Eixos Perceptuais:}
+            \begin{itemize}
+                \setlength{\itemsep}{1pt}
+                \item Claro-Escuro (Luminância / Brilho).
+                \item Vermelho-Verde.
+                \item Azul-Amarelo.
+            \end{itemize}
+        \end{column}
+        
+        \begin{column}{0.45\textwidth}
+            \begin{figure}
+                \centering
+                \includegraphics[width=0.9\textwidth]{images/teoria_oponentes.jpg}
+                \caption{Esquema dos canais neurais oponentes na via visual.}
+            \end{figure}
+        \end{column}
+    \end{columns}
+
+    \note{
+        \begin{columns}[T]
+            \begin{column}{1\textwidth}
+                \scriptsize
+                \textbf{Mecânica Neurofisiológica:}
+                \begin{itemize}
+                    \setlength{\itemsep}{1pt}
+                    \item \textbf{Processamento de Sinais:} Embora a captação inicial seja tricromática (RGB), o processamento neural subsequente depende de oposição cromática. Isso economiza "banda passante" no nervo óptico.
+                    \item \textbf{Fadiga de Receptores (Afterimage):} Olhar fixamente para uma imagem verde forte satura as células do oponente Verde. Ao olhar para uma parede branca após isso, o receptor fadigado falha em disparar o sinal verde, fazendo com que o eixo oposto (Vermelho) dispare livremente. Isso gera a ilusão óptica de enxergar a mesma imagem em vermelho (fantasma cromático).
+                \end{itemize}
+
+                \textbf{Mecanismo de Inibição:}
+                \begin{itemize}
+                    \item Como um sinal elétrico inibe o outro no mesmo canal, o cérebro é incapaz de processar cores como "azul-amarelado" ou "verde-avermelhado".
+                \end{itemize}
+            \end{column}
+        \end{columns}   
+    }
+\end{frame}
+
+\begin{frame}{Colorimetria e Física da Luz}
     \begin{columns}
         \begin{column}{0.45\textwidth}
             \begin{figure}[H]
@@ -57,15 +104,15 @@
         \begin{column}{0.55\textwidth}
             \textbf{Parâmetros da Colorimetria:}
             \begin{itemize}
-                \item Matiz (Hue).
-                \item Saturação.
-                \item Brilho / Intensidade.
+                \item \textbf{Matiz (Hue):} O comprimento de onda dominante (o nome da cor).
+                \item \textbf{Saturação:} Pureza da cor (onda pura vs. misturada com luz branca).
+                \item \textbf{Brilho / Intensidade:} Energia luminosa total coletada.
             \end{itemize}
         \end{column}    
     \end{columns}
 
-    \begin{exampleblock}{Aberração Cromática}
-        Evitar o uso simultâneo de cores nos extremos opostos do espectro \\(ex: Vermelho Puro + Azul Puro).
+    \begin{exampleblock}{Aberração Cromática em Interfaces}
+        Evitar o uso simultâneo de cores nos extremos opostos do espectro visível (ex: Texto Vermelho Puro sobre Fundo Azul Puro).
     \end{exampleblock}
 
     \note{
@@ -74,10 +121,8 @@
                 \scriptsize
                 \textbf{Física e Colorimetria:}
                 \begin{itemize}
-                    \item \textbf{Espectro:} 380 nm (violeta/alta freq) a 750 nm (vermelho/baixa freq).
-                    \item \textbf{Matiz (Hue):} Comprimento de onda dominante (o nome da cor).
-                    \item \textbf{Saturação:} Pureza da cor (onda pura vs. misturada com luz branca).
-                    \item \textbf{Brilho:} Energia luminosa total ($\int$ área sob a curva espectral).
+                    \item \textbf{Espectro:} Vai de 380 nm (violeta/alta frequência) a 750 nm (vermelho/baixa frequência).
+                    \item \textbf{Brilho:} Matematicamente, representa a área sob a curva espectral ($\int$ área).
                 \end{itemize}
             \end{column}
 
@@ -85,11 +130,9 @@
                 \scriptsize
                 \textbf{Aberração Cromática (UI/UX):}
                 \begin{itemize}
-                    \item \textbf{Refração:} Cristalino dobra cores de forma diferente.
-                    \item \textbf{Azul (curta):} Dobra mais, foco à frente.
-                    \item \textbf{Vermelho (longa):} Dobra menos, foco ao fundo.
-                    \item \textbf{Interface (Pane):} Texto azul em fundo vermelho força o olho a contrair/relaxar o músculo freneticamente para focar no mesmo plano.
-                    \item \textbf{Efeito:} Fadiga visual extrema e dor de cabeça em minutos.
+                    \item \textbf{Refração:} O cristalino do olho humano funciona como uma lente e dobra cores de formas diferentes devido ao comprimento de onda.
+                    \item \textbf{O Conflito:} O azul foca ligeiramente à frente da retina; o vermelho, ao fundo. 
+                    \item \textbf{Fadiga Visual:} Colocar essas duas cores puras juntas força os músculos ciliares do olho a contrair e relaxar freneticamente para tentar focar no mesmo plano, gerando dor de cabeça no usuário em poucos minutos.
                 \end{itemize}
             \end{column}
         \end{columns}

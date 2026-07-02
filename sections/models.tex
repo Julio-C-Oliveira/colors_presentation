@@ -1,22 +1,26 @@
-% ==========================================
-% SEÇÃO 3: MODELOS ORIENTADOS AO USUÁRIO E TRANSMISSÃO
-% ==========================================
-\section[Modelos]{Modelos de Cor e Transmissão}
+% ==============================================================================
+% SEÇÃO 3: REPRESENTAÇÃO DIGITAL E OTIMIZAÇÃO (O SOFTWARE E A TRANSMISSÃO)
+% ==============================================================================
+\section{Representação Digital e Otimização}
 
 \begin{frame}{Modelos Orientados ao Usuário: HSV e HSL}
     \begin{columns}[T]
         \begin{column}{0.55\textwidth}
+            \textbf{A Falha Cognitiva do RGB:}
             \begin{itemize}
-                \item \textbf{A Falha Cognitiva do RGB:} O cérebro humano não calcula cores somando intensidades de luz.
-                \vspace{0.2cm}
-                \item \textbf{Abstração de Uso Prático:}
-                \begin{itemize}
-                    \item Hue (Matiz).
-                    \item Saturation.
-                    \item Value / Lightness.
-                \end{itemize}
-                \vspace{0.2cm}
-                \item \textbf{Aplicação em UI/UX:} Base para seletores de cor (\textit{Color Pickers}). O usuário escolhe a tonalidade e depois ajusta a variação de brilho e pureza.
+                \item O cérebro humano não calcula cores de forma intuitiva somando intensidades de luz.
+            \end{itemize}
+
+            \textbf{Abstração Matemática de Software:}
+            \begin{itemize}
+                \item Hue (Matiz).
+                \item Saturation.
+                \item Value / Lightness.
+            \end{itemize}
+
+            \textbf{Aplicação Prática (UI/UX):}
+            \begin{itemize}
+                \item Padrão para seletores de cor. O usuário escolhe a matiz e depois refina o brilho e a pureza.
             \end{itemize}
         \end{column}
         
@@ -33,14 +37,13 @@
         \begin{columns}[T]
             \begin{column}{0.49\textwidth}
                 \scriptsize
-                \textbf{RGB vs. HSV:} O RGB é um modelo de hardware, construído para otimizar o envio de sinal elétrico para subpixels na tela. O HSV e o HSL são modelos de software, construídos para alinhar a computação com a cognição visual humana.
-
-                \textbf{Abstração de Uso Prático:}
+                \textbf{RGB vs. HSV:} O RGB é um modelo voltado puramente ao hardware. O HSV/HSL são abstrações de software feitas para alinhar a computação à cognição humana.
+                
+                \textbf{Diferenças Técnicas Críticas:}
                 \begin{itemize}
                     \setlength{\itemsep}{1pt}
-                    \item \textbf{Hue (Matiz):} A cor em si, mapeada em um círculo angular de 0° a 360° (onde 0° é Vermelho, 120° Verde, 240° Azul).
-                    \item \textbf{Saturation:} O nível de pureza (0\% cinza absoluto, 100\% cor viva).
-                    \item \textbf{Value / Lightness:} A quantidade de luz ou sombra injetada na cor.
+                    \item \textbf{HSV:} $V=100\%$ representa a cor pura (muito usado no ecossistema Adobe/Figma).
+                    \item \textbf{HSL:} A cor pura fica exatamente no meio do eixo, em $L=50\%$, pois em $L=100\%$ o modelo colapsa para branco absoluto. É o padrão nativo da Web (CSS).
                 \end{itemize}
             \end{column}
 
@@ -49,68 +52,50 @@
                 \textbf{Engenharia de Software (UI):}
                 \begin{itemize}
                     \setlength{\itemsep}{1pt}
-                    \item \textbf{Aplicação em UI/UX:} Base para seletores de cor (\textit{Color Pickers}). O usuário escolhe a tonalidade e depois ajusta a variação de brilho e pureza.
-                    \item \textbf{Conversão em Back-end:} Quando o usuário define a cor HSV interface, o programa converte para RGB antes de despachar para o barramento.
+                    \item \textbf{Conversão em Back-end:} O usuário manipula a cor de forma intuitiva em HSV no seletor, mas o programa converte os vetores para RGB em tempo real antes de despachar o sinal para o hardware.
+                    \item \textbf{Aplicações em Código:} O HSL/HSV é fantástico na programação para gerar paletas consistentes e lógica de \textit{Dark Mode}, pois você pode alterar apenas a variável numérica de luminosidade ($L$) em loops aritméticos simples sem quebrar ou mudar a matiz original da identidade visual.
                 \end{itemize}
-                O cérebro humano não calcula cores somando intensidades de luz (ex: descobrir a mistura exata de R, G e B para gerar um tom de marrom).
-
-                No HSV, $V=100\%$ é a cor pura (usado no Photoshop e Figma); no HSL, a cor pura fica em $L=50\%$, pois $L=100\%$ vira branco absoluto (padrão nativo na Web/CSS). O HSL é ideal na programação para criar paletas e \textit{Dark Mode} alterando apenas a variável $L$ aritmeticamente, sem quebrar o vetor de cor.
             \end{column}
         \end{columns}   
     }
 \end{frame}
 
-\begin{frame}{Transmissão e Processamento Cognitivo: YIQ e Cores Oponentes}
+\begin{frame}{Transmissão e Compressão Digital: Modelo YIQ}
     \begin{columns}[T]
+        \small
         \begin{column}{0.55\textwidth}
-            \begin{itemize}
-                \item \textbf{O Modelo YIQ e Engenharia de Software:}
-                \begin{itemize}
-                    \item \textbf{Criado para retrocompatibilidade.}
-                    \item \textbf{Compressão de Banda:} O olho humano foca em detalhes no brilho ($Y$), não na cor.
-                \end{itemize}
+            \textbf{Retrocompatibilidade Histórica:} Criado para permitir que TVs coloridas e TVs P\&B compartilhassem o sinal de transmissão de rádio.
 
-                \item \textbf{A Engenharia Biológica (Cores Oponentes):}
-                \begin{itemize}
-                    \item A retina converte os sinais de R, G e B em três eixos diferenciais de voltagem.
-                \end{itemize}
+            \textbf{Otimização Baseada na Biologia:}
+            \begin{itemize}
+                \item Como vimos na Seção 1 (Canais Oponentes), a acuidade espacial do olho humano está concentrada no brilho ($Y$), não na cor ($I$ e $Q$).
+            \end{itemize}
+
+            \textbf{Subamostragem de Crominância:}
+            \begin{itemize}
+                \item Permite descartar metade dos dados das variáveis de cor ($I, Q$) sem perda perceptível de qualidade pelo olho humano.
             \end{itemize}
         \end{column}
         
         \begin{column}{0.45\textwidth}
             \begin{figure}
                 \centering
-                \includegraphics[width=0.9\textwidth]{images/teoria_oponentes.jpg}
-                \caption{Esquema dos canais neurais oponentes e compressão de sinal.}
+                \includegraphics[width=0.9\textwidth]{images/teoria_oponentes.jpg} 
+                \caption{Aproveitamento de canais diferenciais para compressão de sinal.}
             \end{figure}
         \end{column}
     \end{columns}
 
     \note{
         \begin{columns}[T]
-            \begin{column}{0.49\textwidth}
+            \begin{column}{1\textwidth}
                 \scriptsize
                 \textbf{Otimização de Hardware e Banda:}
                 \begin{itemize}
                     \setlength{\itemsep}{1pt}
-                    \item \textbf{Subamostragem de Crominância:} O modelo YIQ é o ancestral direto dos formatos modernos de compressão de vídeo como YCbCr (usado em JPEG e MP4). O software descarta dados de cor porque a nossa acuidade visual para detalhes finos está concentrada quase que inteiramente na escala de cinza ($Y$).
-                    \item O YIQ foi criado para retrocompatibilidade: TVs P\&B liam apenas o canal Y (Luminância/Brilho). TVs coloridas decodificavam I e Q (Crominância/Cor).
-                    O olho humano foca em detalhes no brilho ($Y$), não na cor. Isso permitiu que engenheiros de transmissão reduzissem a largura de banda de $I$ e $Q$ pela metade sem perda de qualidade percebida.
-                \end{itemize}
-            \end{column}
-
-            \begin{column}{0.51\textwidth}    
-                \scriptsize
-                \textbf{Mecânica Neurofisiológica:}
-                \begin{itemize}
-                    \setlength{\itemsep}{1pt}
-                    \item \textbf{Fadiga de Receptores (Afterimage):} Olhar fixamente para uma imagem verde forte satura as células do oponente Verde. Ao olhar para uma parede branca, após isso, o receptor fadigado falha em disparar o sinal verde, fazendo com que o eixo oposto (Vermelho) dispare livremente. Gerando a ilusão de ver a mesma imagem em vermelho.
-                \end{itemize}
-
-                \textbf{A Engenharia Biológica (Cores Oponentes):}
-                \begin{itemize}
-                    \item A retina converte os sinais de R, G e B em três eixos diferenciais de voltagem: Vermelho-Verde, Azul-Amarelo e Claro-Escuro.
-                    \item Como um sinal elétrico inibe o outro no mesmo canal, o cérebro não consegue processar "verde-avermelhado".
+                    \item \textbf{Histórico da Engenharia de TV:} As TVs Preto e Branco precisavam apenas do canal $Y$ (Luminância). Quando a TV colorida surgiu, os engenheiros inseriram os canais $I$ e $Q$ (Crominância) "escondidos" nas bordas do mesmo sinal analógico, evitando ter que criar canais de transmissão novos para cada emissora.
+                    \item \textbf{Economia de Recursos:} Sabendo que o cérebro processa o brilho separado da cor através dos eixos oponentes, reduziu-se a largura de banda de $I$ e $Q$ de forma agressiva.
+                    \item \textbf{Legado na Computação Gráfica:} O YIQ é o ancestral tecnológico direto dos formatos digitais modernos de compressão de imagem e vídeo, como o **YCbCr** (usado no núcleo de algoritmos de arquivos **JPEG, MPEG e MP4**). Na computação forense e streaming, descartamos dados de cor brutos confiando na tolerância cognitiva do cérebro.
                 \end{itemize}
             \end{column}
         \end{columns}   

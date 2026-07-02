@@ -5,25 +5,47 @@
 
 \begin{frame}{Transformações de Espaço e o Histograma}
     \begin{itemize}
-        \item \textbf{Transformações de Espaço de Cor:}
+        \item \textbf{Matrizes de Transformação:}
         \begin{itemize}
-            \item A conversão entre modelos é realizada via operações de álgebra linear utilizando matrizes de transformação.
-            \item Exemplo: Conversão de RGB para o padrão internacional \textbf{CIE XYZ} (observador padrão) usando coeficientes normalizados baseados nas primárias físicas do sistema NTSC.
+            \item A conversão entre espaços de cor não é arbitrária; ela ocorre via multiplicação de matrizes por vetores de pixels $[R, G, B]^T$.
+            \item \textbf{CIE XYZ:} Espaço matemático universal usado como "ponte" de tradução entre hardwares diferentes.
         \end{itemize}
+        
         \vspace{0.2cm}
-        \item \textbf{O Histograma de Cores:}
+        
+        \item \textbf{O Histograma como Array de Dados:}
         \begin{itemize}
-            \item Uma ferramenta estatística discreta fundamental no processamento digital de imagens.
-            \item Computa a densidade de frequência de ocorrência de cada tom/intensidade na imagem.
-            \item \textbf{Aplicações Práticas:} Recuperação de Imagens por Conteúdo (CBIR) via comparação de histogramas, e algoritmos automáticos de Equalização de Contraste.
+            \item É um vetor de contagem estatística discreta. Para imagens de 8 bits, cria-se um array de 256 posições (\textit{bins}).
+            \item Varre-se a matriz de pixels incrementando o índice correspondente à intensidade encontrada.
+        \end{itemize}
+        
+        \vspace{0.2cm}
+        
+        \item \textbf{Engenharia de Algoritmos (CBIR):}
+        \begin{itemize}
+            \item Sistemas de busca reversa de imagens comparam a distância euclidiana ou a interseção entre vetores de histogramas para medir similaridade cromática.
         \end{itemize}
     \end{itemize}
 
-    % \begin{figure}[H]
-    %     \centering
-    %     \includegraphics[width=0.6\textwidth]{histograma_exemplo.png}
-    %     \caption{Sugestão de Imagem: Uma imagem digital ao lado de seus respectivos histogramas de canais divididos (R, G e B).}
-    % \end{figure}
+    \note{
+        \begin{columns}[T]
+            \begin{column}{0.49\textwidth}
+                \scriptsize
+                \textbf{Pipeline de Álgebra Linear:}
+                \begin{itemize}
+                    \setlength{\itemsep}{1pt}
+                    \item \textbf{Pipeline de GPU:} A conversão RGB para XYZ utiliza uma matriz $3 \times 3$ fixa com coeficientes baseados no observador padrão. Como essa operação é uma transformação linear pura e independente para cada pixel, ela é paralelizada nativamente em Shaders dentro da GPU, permitindo processamento em tempo real de fluxos de vídeo em alta resolução.
+                \end{itemize}
+            \end{column}
 
-    \note{Mostrar que a computação gráfica trata a cor puramente como vetores e matrizes. O histograma funciona mapeando os pixels em partições de dados (bins). Se duas imagens possuem histogramas estatisticamente muito próximos, elas compartilham propriedades de composição cromática semelhantes.}
+            \begin{column}{0.49\textwidth}    
+                \scriptsize
+                \textbf{Manipulação Estatística:}
+                \begin{itemize}
+                    \setlength{\itemsep}{1pt}
+                    \item \textbf{Equalização de Histograma:} Algoritmos de melhoria de contraste usam a Função de Distribuição Acumulada (CDF) do histograma para redistribuir as frequências de pixels. Áreas muito concentradas (subexpostas ou superexpostas) têm seus valores espalhados linearmente por todo o array de 0 a 255, maximizando a entropia e o contraste da imagem de forma automatizada.
+                \end{itemize}
+            \end{column}
+        \end{columns}   
+    }
 \end{frame}
